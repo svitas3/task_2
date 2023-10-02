@@ -1,0 +1,4 @@
+ex1 rwx 16 B
+ex2 rwx 12 B
+Ls.java rwx 4 KB
+Main.java rwx 306 B
