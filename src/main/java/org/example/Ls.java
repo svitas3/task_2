@@ -31,14 +31,14 @@ public class Ls {
     public void execute(String[] args) throws IOException {
         CmdLineParser parser = new CmdLineParser(this);
         try {
-            parser.parseArgument(args);
+            parser.parseArgument(args);  //метод разбирает аргументы и привязывает значения к полям класса Ls
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
             System.err.println("Usage: [-l] [-h] [-r] [-o output.file] directory_or_file");
             parser.printUsage(System.err);
             return;
         }
-
+        //проверка существования указанного файла или директории:
         try {
             if (!directoryOrFile.exists()) throw new IOException();
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class Ls {
             System.out.print("IOException");
             return;
         }
-
+        //формируется список имен файлов, которые будут обработаны
         List<String> fileNames;
         if (directoryOrFile.isDirectory()) {
             fileNames = Arrays.asList(directoryOrFile.list());
@@ -54,8 +54,7 @@ public class Ls {
         } else {
             fileNames = Collections.singletonList(directoryOrFile.getName());
         }
-
-
+        //построение строки вывода
         StringBuilder outputBuilder = new StringBuilder();
         for (String fileName : fileNames) {
             if (isLongFormat)
@@ -65,7 +64,6 @@ public class Ls {
             else
                 outputBuilder.append(String.format("%s\n", fileName));
         }
-
 
         if (outputFile != null) {
             FileWriter writer = new FileWriter(outputFile);
@@ -124,7 +122,6 @@ public class Ls {
     private String getSizeString(File file) {
         return String.format("%d", file.length());
     }
-
 
     private String getHumanReadableSizeString(File file) {
         long size = file.length();
